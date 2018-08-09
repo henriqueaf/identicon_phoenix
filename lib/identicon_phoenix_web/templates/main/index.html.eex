@@ -1,0 +1,18 @@
+<form id="generateIdenticonForm">
+  <div class="row">
+    <div class="col-sm-9">
+      <div class="form-group">
+        <label class="sr-only" for="nameString">Email address</label>
+        <input type="text" class="form-control" id="nameString" placeholder="String to transform identicon">
+      </div>
+    </div>
+
+    <div class="col-sm-3 text-center">
+      <%= link "Generate Identicon", to: main_path(@conn, :identicon, "henrique"), id: "generateIdenticonLink", class: "btn btn-default" %>
+    </div>
+  </div>
+</form>
+
+<div class="text-center">
+  <img src="" id="identiconImg" class="img-thumbnail">
+</div>
