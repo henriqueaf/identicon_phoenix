@@ -54,5 +54,5 @@ config :identicon_phoenix, IdenticonPhoenix.Repo,
   username: "postgres",
   password: "postgres",
   database: "identicon_phoenix_dev",
-  hostname: "localhost",
+  hostname: "172.17.0.2",
   pool_size: 10
