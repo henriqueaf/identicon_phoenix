@@ -1,4 +1,17 @@
 defmodule IdenticonPhoenix.Identicon do
+  @moduledoc """
+  A module that generates an Identicon image from a string input.
+  """
+
+  @doc """
+  It creates a identicon image file with same name of input string.
+
+  ## Examples
+
+      iex> is_binary IdenticonPhoenix.Identicon.generate_identicon_binary("test")
+      true
+
+  """
   def generate_identicon_binary(input_string) do
     input_string
     |> hash_input
@@ -9,18 +22,27 @@ defmodule IdenticonPhoenix.Identicon do
     |> draw_image
   end
 
-  defp hash_input(input) do
+  @doc """
+  It receives an String an return an Image struct with that string converted to bin list.
+
+  ## Examples
+
+      iex> IdenticonPhoenix.Identicon.hash_input("test")
+      %IdenticonPhoenix.Image{hex: :binary.bin_to_list(:crypto.hash(:md5, "test"))}
+
+  """
+  def hash_input(input) do
     hex = :crypto.hash(:md5, input)
     |> :binary.bin_to_list
 
     %IdenticonPhoenix.Image{hex: hex}
   end
 
-  defp pick_color(%IdenticonPhoenix.Image{hex: [r, g, b | _tail]} = image_struct) do
+  def pick_color(%IdenticonPhoenix.Image{hex: [r, g, b | _tail]} = image_struct) do
     %IdenticonPhoenix.Image{image_struct | color: {r,g,b}}
   end
 
-  defp build_grid(%IdenticonPhoenix.Image{hex: hex_list} = image_struct) do
+  def build_grid(%IdenticonPhoenix.Image{hex: hex_list} = image_struct) do
     grid =
       hex_list
       |> Enum.chunk(3)
@@ -32,7 +54,7 @@ defmodule IdenticonPhoenix.Identicon do
     %IdenticonPhoenix.Image{image_struct | grid: grid}
   end
 
-  defp mirror_row([first, second, _middle] = row) do
+  def mirror_row([first, second, _middle] = row) do
     row ++ [second, first]
   end
 
