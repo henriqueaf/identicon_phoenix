@@ -22,27 +22,18 @@ defmodule IdenticonPhoenix.Identicon do
     |> draw_image
   end
 
-  @doc """
-  It receives an String an return an Image struct with that string converted to bin list.
-
-  ## Examples
-
-      iex> IdenticonPhoenix.Identicon.hash_input("test")
-      %IdenticonPhoenix.Image{hex: :binary.bin_to_list(:crypto.hash(:md5, "test"))}
-
-  """
-  def hash_input(input) do
+  defp hash_input(input) do
     hex = :crypto.hash(:md5, input)
     |> :binary.bin_to_list
 
     %IdenticonPhoenix.Image{hex: hex}
   end
 
-  def pick_color(%IdenticonPhoenix.Image{hex: [r, g, b | _tail]} = image_struct) do
+  defp pick_color(%IdenticonPhoenix.Image{hex: [r, g, b | _tail]} = image_struct) do
     %IdenticonPhoenix.Image{image_struct | color: {r,g,b}}
   end
 
-  def build_grid(%IdenticonPhoenix.Image{hex: hex_list} = image_struct) do
+  defp build_grid(%IdenticonPhoenix.Image{hex: hex_list} = image_struct) do
     grid =
       hex_list
       |> Enum.chunk(3)
@@ -54,7 +45,7 @@ defmodule IdenticonPhoenix.Identicon do
     %IdenticonPhoenix.Image{image_struct | grid: grid}
   end
 
-  def mirror_row([first, second, _middle] = row) do
+  defp mirror_row([first, second, _middle] = row) do
     row ++ [second, first]
   end
 
