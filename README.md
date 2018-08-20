@@ -1,5 +1,7 @@
 # IdenticonPhoenix
 
+* Try the demo: https://identicon-phoenix.herokuapp.com/
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
